@@ -5,18 +5,17 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class SeleniumTest {
 
-    private WebDriver driver;
+    private WebDriver webDriver;
     /**
      * set up selenium web driver.
      * NOTE: the selenium web driver might not be properly configured for your environment.
@@ -27,23 +26,30 @@ public class SeleniumTest {
     @Before
     public void setUp() {
         // Set up ChromeDriver path
-        System.setProperty("webdriver.chrome.driver", "./chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/driver/chromedriver");//linux_64
+
+        // Get file
+        File file = new File("index.html");
+        String path = "file://" + file.getAbsolutePath();
 
         // Create a new ChromeDriver instance
-        driver = new ChromeDriver();
-        File file = new File("index.html");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        webDriver = new ChromeDriver(options);
+
         // Open the HTML file
-        driver.get(file.getAbsolutePath());
+        webDriver.get(path);
     }
+
     @Test
     public void testCreateOnBulb() {
         // Click the 'on' bulb button
-        WebElement onButton = driver.findElement(By.id("onBulb"));
+        WebElement onButton = webDriver.findElement(By.id("onBulb"));
         onButton.click();
 
         // Find the dynamically created elements
-        WebElement title = driver.findElement(By.xpath("//h2[text()='Lightbulb 1']"));
-        WebElement description = driver.findElement(By.xpath("//p[contains(text(),'The bulb is')]"));
+        WebElement title = webDriver.findElement(By.xpath("//h2[text()='Lightbulb 1']"));
+        WebElement description = webDriver.findElement(By.xpath("//p[contains(text(),'The bulb is')]"));
 
         // Assert the elements' text values
         assertEquals("Lightbulb 1", title.getText());
@@ -53,12 +59,12 @@ public class SeleniumTest {
     @Test
     public void testCreateOffBulb() {
         // Click the 'on' bulb button
-        WebElement onButton = driver.findElement(By.id("offBulb"));
+        WebElement onButton = webDriver.findElement(By.id("offBulb"));
         onButton.click();
 
         // Find the dynamically created elements
-        WebElement title = driver.findElement(By.xpath("//h2[text()='Lightbulb 1']"));
-        WebElement description = driver.findElement(By.xpath("//p[contains(text(),'The bulb is')]"));
+        WebElement title = webDriver.findElement(By.xpath("//h2[text()='Lightbulb 1']"));
+        WebElement description = webDriver.findElement(By.xpath("//p[contains(text(),'The bulb is')]"));
 
         // Assert the elements' text values
         assertEquals("Lightbulb 1", title.getText());
