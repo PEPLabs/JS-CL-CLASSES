@@ -1,0 +1,20 @@
+{
+  "type": "java",
+  "testFiles": [
+    {
+      "path": "src/test/java/SeleniumTest.java",
+      "testCases": [
+        {
+          "methodName": "testCreateOnBulb",
+          "label": "Creates an 'on' lightbulb with correct text",
+          "description": "Clicks the button with id 'onBulb', then verifies that an <h2> with text 'Lightbulb 1' is created and the description paragraph contains 'on' but not 'off'."
+        },
+        {
+          "methodName": "testCreateOffBulb",
+          "label": "Creates an 'off' lightbulb with correct text",
+          "description": "Clicks the button with id 'offBulb', then verifies that an <h2> with text 'Lightbulb 1' is created and the description paragraph contains 'off' but not 'on'."
+        }
+      ]
+    }
+  ]
+}
